@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ATRON 8888</title>
+  <meta name="description" content="Congratulations, ATRON!">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div>
+    <p id="subtitle"></p>
+    <p id="title"></p>
+  </div>
+
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+  <script>
+    const birthday = dayjs('1996-10-24');
+
+    function getDayCount() {
+      const dayCounts = [
+        12345,
+        11111,
+        10001,
+        10000,
+        9999,
+        9876,
+      ];
+
+      return dayCounts.reduce((prevDayCount, dayCount) => {
+        const anniversary = birthday.add(dayCount - 1, 'day');
+        const millisecond = anniversary - dayjs();
+        if (millisecond > 0) return dayCount;
+        if (millisecond > - 18 * 60 * 60 * 1000) return dayCount;
+        return prevDayCount;
+      }, dayCounts[0]);
+    }
+
+    function showRemainedDate() {
+      const dayCount = getDayCount();
+      const birthday = dayjs('1996-10-24');
+      const anniversary = birthday.add(dayCount - 1, 'day');
+      const millisecond = anniversary - dayjs();
+
+      const subtitleElement = document.getElementById('subtitle');
+      const titleElement = document.getElementById('title');
+
+      if (millisecond > 0) {
+        const day    = Math.floor(millisecond / 1000 / 60 / 60 / 24);
+        const hour   = Math.floor(millisecond / 1000 / 60 / 60) % 24;
+        const minute = Math.floor(millisecond / 1000 / 60) % 60;
+        const second = Math.floor(millisecond / 1000) % 60;
+
+        let titleString = '';
+        if (day                            ) titleString += `<p class="title">${day}일</p>`;
+        if (day || hour                    ) titleString += `<p class="title">${('0'  +        hour).slice(-2)}시간</p>`;
+        if (day || hour || minute          ) titleString += `<p class="title">${('0'  +      minute).slice(-2)}분</p>`;
+        if (day || hour || minute || second) titleString += `<p class="title">${('0'  +      second).slice(-2)}초</p>`;
+        titleString += `<p class="title">${('00' + millisecond).slice(-3)}</p>`;
+
+        subtitleElement.innerHTML = `${dayCount}까지`;
+        titleElement.innerHTML = titleString;
+        requestAnimationFrame(showRemainedDate);
+      } else {
+        subtitleElement.innerHTML = `${dayCount}: ${anniversary.format('YYYY-MM-DD')}`;
+        titleElement.innerHTML = 'Congratulations!';
+      }
+    }
+
+    requestAnimationFrame(showRemainedDate);
+  </script>
+</body>
+
+</html>
