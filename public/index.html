@@ -17,6 +17,13 @@
     <p id="title"></p>
   </div>
 
+  <!-- lol -->
+  <div class="lol-frame">
+    <p id="summoner-name"></p>
+    <p id="summoner-level"></p>
+    <p id="win-lose"></p>
+  </div>
+
   <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
   <script>
     const birthday = dayjs('1996-10-24');
@@ -72,6 +79,48 @@
     }
 
     requestAnimationFrame(showRemainedDate);
+
+    // ============================= LOL ============================= //
+    const summonerName = document.getElementById('summoner-name');
+    const summonerLevel = document.getElementById('summoner-level');
+    const winLose = document.getElementById('win-lose');
+
+    const baseUrl = "https://kr-carrot.herokuapp.com/api";
+    // const baseUrl = "http://localhost:8080/api"
+    const xmlHttpRequest = new XMLHttpRequest();
+
+    xmlHttpRequest.open("GET", baseUrl + "/summoner/아트런/10", true); // 하드코딩 ㅈㅅ
+    xmlHttpRequest.send();
+    xmlHttpRequest.onload = function() {
+      if(xmlHttpRequest.status == 200) {
+        showLolInfo(xmlHttpRequest.response);
+      }
+      else {
+        handleLolError(xmlHttpRequest.response);
+      }
+    }
+    
+    /**
+    * lol 정보 조회 성공
+    */
+    function showLolInfo(data) {
+      const obj = JSON.parse(data);
+      // console.log(obj);
+
+      summonerName.innerHTML = obj.response.summonerName;
+      summonerLevel.innerHTML = `Lv.${obj.response.summonerLevel}`;
+      const win = obj.response.win;
+      const lose = obj.response.lose;
+      winLose.innerHTML = `${win + lose}전 ${win}승 ${lose}패`;
+    }
+
+    /**
+    * 통신 실패
+    */
+    function handleLolError(error) {
+      console.log(error);
+    }
+    
   </script>
 </body>
 
