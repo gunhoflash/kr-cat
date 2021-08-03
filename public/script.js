@@ -53,10 +53,6 @@ function showRemainedDate() {
 requestAnimationFrame(showRemainedDate);
 
 // ============================= LOL ============================= //
-const summonerName = document.getElementById('summoner-name');
-const summonerLevel = document.getElementById('summoner-level');
-const winLose = document.getElementById('win-lose');
-
 const baseUrl = "https://kr-carrot.herokuapp.com/api";
 // const baseUrl = "http://localhost:8080/api"
 const xmlHttpRequest = new XMLHttpRequest();
@@ -78,28 +74,14 @@ xmlHttpRequest.onload = function() {
 */
 function showLolInfo(data) {
 
-  const obj = JSON.parse(data);
+  const obj = JSON.parse(data).response;
   console.log(obj);
 
-  summonerName.innerHTML = obj.response.summonerName;
-  summonerLevel.innerHTML = `Lv.${obj.response.summonerLevel}`;
-  const win = obj.response.win;
-  const lose = obj.response.lose;
-  winLose.innerHTML = `${win + lose}전 ${win}승 ${lose}패`;
+  // 프로필 정보 세팅
+  showProfile(obj);
 
-  document.getElementById('profile-icon').src = getProfileIconSrcPath(obj.response.profileIcon);
-
-  // 이미지 세팅 -> n번 반복 해야됨..
-  document.getElementById('champion').src = getChampionSrcPath(obj.response.inGamePlayerInfos[0].champion);
-  document.getElementById('summoner-spell-d').src = getSummonerSpellSrcPath(obj.response.inGamePlayerInfos[0].spell1);
-  document.getElementById('summoner-spell-f').src = getSummonerSpellSrcPath(obj.response.inGamePlayerInfos[0].spell2);
-  document.getElementById('item-0').src = getItemSrcPath(obj.response.inGamePlayerInfos[0].item0);
-  document.getElementById('item-1').src = getItemSrcPath(obj.response.inGamePlayerInfos[0].item1);
-  document.getElementById('item-2').src = getItemSrcPath(obj.response.inGamePlayerInfos[0].item2);
-  document.getElementById('item-3').src = getItemSrcPath(obj.response.inGamePlayerInfos[0].item3);
-  document.getElementById('item-4').src = getItemSrcPath(obj.response.inGamePlayerInfos[0].item4);
-  document.getElementById('item-5').src = getItemSrcPath(obj.response.inGamePlayerInfos[0].item5);
-  document.getElementById('win').innerHTML = 'win = ' + obj.response.inGamePlayerInfos[0].win; // 이거 이기고 진거에 따라 배경색 다르게 해주세요
+  // 이미지 세팅 -> n번 반복 해야됨.. // 하드코딩함 ㅈㅅ
+  showHistory(obj.inGamePlayerInfos);
 
   // show lol main frame
   document.getElementById("lol-main-div").style.display = 'block';
@@ -152,4 +134,37 @@ function getItemSrcPath(itemId) {
  */
 function getSummonerSpellSrcPath(spellName) {
   return `http://ddragon.leagueoflegends.com/cdn/11.15.1/img/spell/${spellName}.png`;
+}
+
+/**
+ * 소환사 프로필 정보
+ */
+function showProfile(obj) {
+
+  const win = obj.win;
+  const lose = obj.lose;
+
+  document.getElementById('summoner-name').innerHTML = obj.summonerName;
+  document.getElementById('summoner-level').innerHTML = `Lv.${obj.summonerLevel}`;
+  document.getElementById('win-lose').innerHTML = `${win + lose}전 ${win}승 ${lose}패`;
+  document.getElementById('profile-icon').src = getProfileIconSrcPath(obj.profileIcon);
+}
+
+/**
+ * 게임 이력
+ */
+function showHistory(gameData) {
+
+  for( var i = 0; i < gameData.length; i++) {
+    document.getElementById(`g${i}-champion`).src = getChampionSrcPath(gameData[i].champion);
+    document.getElementById(`g${i}-summoner-spell-d`).src = getSummonerSpellSrcPath(gameData[i].spell1);
+    document.getElementById(`g${i}-summoner-spell-f`).src = getSummonerSpellSrcPath(gameData[i].spell2);
+    document.getElementById(`g${i}-item-0`).src = getItemSrcPath(gameData[i].item0);
+    document.getElementById(`g${i}-item-1`).src = getItemSrcPath(gameData[i].item1);
+    document.getElementById(`g${i}-item-2`).src = getItemSrcPath(gameData[i].item2);
+    document.getElementById(`g${i}-item-3`).src = getItemSrcPath(gameData[i].item3);
+    document.getElementById(`g${i}-item-4`).src = getItemSrcPath(gameData[i].item4);
+    document.getElementById(`g${i}-item-5`).src = getItemSrcPath(gameData[i].item5);
+    document.getElementById(`g${i}-result`).innerHTML = gameData[i].win ? 'win' : 'lose'; // 이거 이기고 진거에 따라 배경색 다르게 해주세요
+  }
 }
