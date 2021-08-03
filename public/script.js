@@ -61,7 +61,7 @@ const baseUrl = "https://kr-carrot.herokuapp.com/api";
 // const baseUrl = "http://localhost:8080/api"
 const xmlHttpRequest = new XMLHttpRequest();
 
-xmlHttpRequest.open("GET", baseUrl + "/summoner/아트런/10", true); // 하드코딩 ㅈㅅ
+xmlHttpRequest.open("GET", baseUrl + "/summoner/아트런/3", true); // 하드코딩 ㅈㅅ
 xmlHttpRequest.send();
 xmlHttpRequest.onload = function() {
   if(xmlHttpRequest.status == 200) {
@@ -77,14 +77,32 @@ xmlHttpRequest.onload = function() {
 * lol 정보 조회 성공
 */
 function showLolInfo(data) {
+
   const obj = JSON.parse(data);
-  // console.log(obj);
+  console.log(obj);
 
   summonerName.innerHTML = obj.response.summonerName;
   summonerLevel.innerHTML = `Lv.${obj.response.summonerLevel}`;
   const win = obj.response.win;
   const lose = obj.response.lose;
   winLose.innerHTML = `${win + lose}전 ${win}승 ${lose}패`;
+
+  document.getElementById('profile-icon').src = getProfileIconSrcPath(obj.response.profileIcon);
+
+  // 이미지 세팅 -> n번 반복 해야됨..
+  document.getElementById('champion').src = getChampionSrcPath(obj.response.inGamePlayerInfos[0].champion);
+  document.getElementById('summoner-spell-d').src = getSummonerSpellSrcPath(obj.response.inGamePlayerInfos[0].spell1);
+  document.getElementById('summoner-spell-f').src = getSummonerSpellSrcPath(obj.response.inGamePlayerInfos[0].spell2);
+  document.getElementById('item-0').src = getItemSrcPath(obj.response.inGamePlayerInfos[0].item0);
+  document.getElementById('item-1').src = getItemSrcPath(obj.response.inGamePlayerInfos[0].item1);
+  document.getElementById('item-2').src = getItemSrcPath(obj.response.inGamePlayerInfos[0].item2);
+  document.getElementById('item-3').src = getItemSrcPath(obj.response.inGamePlayerInfos[0].item3);
+  document.getElementById('item-4').src = getItemSrcPath(obj.response.inGamePlayerInfos[0].item4);
+  document.getElementById('item-5').src = getItemSrcPath(obj.response.inGamePlayerInfos[0].item5);
+  document.getElementById('win').innerHTML = 'win = ' + obj.response.inGamePlayerInfos[0].win; // 이거 이기고 진거에 따라 배경색 다르게 해주세요
+
+  // show lol main frame
+  document.getElementById("lol-main-div").style.display = 'block';
 }
 
 /**
@@ -93,10 +111,7 @@ function showLolInfo(data) {
 function handleLolError() {
 
   // display register api key
-  console.log(document.getElementById("api-key-form"));
   document.getElementById("api-key-form").style.display = 'block';
-  
-  console.log(document.getElementById("api-key-form"));
 }
 
 /**
@@ -109,4 +124,32 @@ function onClickApiKeySubmit() {
   xmlHttpRequest.setRequestHeader('Content-Type', 'application/json');
   xmlHttpRequest.send(JSON.stringify(body));
   window.location.reload();
+}
+
+/**
+ * profile icon Id -> profile icon image path
+ */
+function getProfileIconSrcPath(profileIconId) {
+  return `http://ddragon.leagueoflegends.com/cdn/11.15.1/img/profileicon/${profileIconId}.png`;
+}
+
+/**
+ * champion name -> champion icon image path
+ */
+function getChampionSrcPath(championName) {
+  return `http://ddragon.leagueoflegends.com/cdn/11.15.1/img/champion/${championName}.png`;
+}
+
+/**
+ * item id -> item icon image path
+ */
+function getItemSrcPath(itemId) {
+  return `http://ddragon.leagueoflegends.com/cdn/11.15.1/img/item/${itemId}.png`;
+}
+
+/**
+ * summoner spell name -> summoner spell icon image path
+ */
+function getSummonerSpellSrcPath(spellName) {
+  return `http://ddragon.leagueoflegends.com/cdn/11.15.1/img/spell/${spellName}.png`;
 }

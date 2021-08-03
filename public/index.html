@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ATRON 8888</title>
   <meta name="description" content="Congratulations, ATRON!">
+  <meta name="referrer" content="no-referrer" />
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans">
   <link rel="stylesheet" href="style.css">
@@ -18,10 +19,27 @@
   </div>
 
   <!-- lol -->
-  <div class="lol-frame">
-    <p id="summoner-name"></p>
+  <div id="lol-main-div" class="lol-frame" style="display: none;">
+    <div>
+      <div id="summoner-name"></div>
+      <img id="profile-icon" src="" alt="">
+    </div>
     <p id="summoner-level"></p>
     <p id="win-lose"></p>
+
+    <!-- n번 반복해야됨 -->
+    <div style="background-color: rgba(0, 0, 0, 0.3);">
+      <img id="champion" src="" alt="">
+      <img id="summoner-spell-d" src="" alt="">
+      <img id="summoner-spell-f" src="" alt="">
+      <img id="item-0" src="" alt="">
+      <img id="item-1" src="" alt="">
+      <img id="item-2" src="" alt="">
+      <img id="item-3" src="" alt="">
+      <img id="item-4" src="" alt="">
+      <img id="item-5" src="" alt="">
+      <p id="win"></p>
+    </div>
   </div>
 
   <!-- register api key -->
