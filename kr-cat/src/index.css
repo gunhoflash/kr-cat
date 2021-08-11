@@ -1,9 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+
 * {
   box-sizing: border-box;
 }
+
 body {
   color: white;
   font-family: 'Black Han Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   font-size: 200%;
   font-style: italic;
   height: 100vh;
@@ -20,6 +25,11 @@ body {
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
 }
+
+@media (min-width:  576px) { body { padding-left:  3rem; } }
+@media (min-width:  768px) { body { padding-left:  5rem; } }
+@media (min-width: 1024px) { body { padding-left:  9rem; } }
+@media (min-width: 1200px) { body { padding-left: 17rem; } }
 
 @keyframes gradient {
   0% {
@@ -38,23 +48,3 @@ p {
   word-break: keep-all;
   line-height: 1;
 }
-
-#subtitle {
-  color: #FFD500;
-  padding-left: 0.125em;
-}
-
-.lol-frame {
-  margin-top: 3rem;
-}
-
-.title:nth-child(1) { font-size: 430%; }
-.title:nth-child(2) { font-size: 210%; }
-.title:nth-child(3) { font-size: 140%; }
-.title:nth-child(4) { font-size: 100%; }
-.title:nth-child(5) { font-size:  80%; }
-
-@media (min-width:  576px) { body { padding-left:  3rem; } }
-@media (min-width:  768px) { body { padding-left:  5rem; } }
-@media (min-width: 1024px) { body { padding-left:  9rem; } }
-@media (min-width: 1200px) { body { padding-left: 17rem; } }
