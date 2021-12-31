@@ -7,6 +7,16 @@ const LOL_IMG_BASE = 'http://ddragon.leagueoflegends.com/cdn/11.15.1/img';
 const getLOLImgPath = (v: string, subpath: string) => `${LOL_IMG_BASE}/${subpath}/${v}.png`;
 
 
+interface SummonerInfo {
+  accountId: string;
+  profileIconId: number;
+  revisionDate: number;
+  name: string;
+  id: string;
+  puuid: string;
+  summonerLevel: number;
+}
+
 interface History {
   gameDuration: number;
   gameEndTimestamp: number;
@@ -26,7 +36,9 @@ interface History {
     item6: number;
     kills: number;
     summoner1Id: number;
+    summonerSpell1: string;
     summoner2Id: number;
+    summonerSpell2: string;
     summonerLevel: number;
     summonerName: string;
     timePlayed: number;
@@ -35,23 +47,36 @@ interface History {
 }
 
 function Section() {
-  const [LOLInfo, setLOLInfo] = useState<any>(null);
+  const [summonerInfo, setSummonerInfo] = useState<SummonerInfo>();
   const [histories, setHistories] = useState<History[]>([]);
 
   useEffect(() => {
-
-    console.log("use effect");
-    window.fetch(baseUrl + "/summoner/아트런")
-      .then(response => response.json())
-      .then(data => {
-        console.log(data.response.gameInfos);
-        setHistories(data.response.gameInfos)
-      });
-
+    getAndSetSummonerInfo();
+    getAndSetHistories();
+    
     return () => {
-
+      
     }
   }, [])
+
+
+  const getAndSetSummonerInfo = function() {
+    window.fetch(baseUrl + "/summoners/아트런")
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.response);
+        setSummonerInfo(data.response)}
+        );
+  }
+
+  const getAndSetHistories = function() {
+    window.fetch(baseUrl + "/summoners/histories/아트런")
+    .then(response => response.json())
+    .then(data => {
+      console.log(data.response.gameInfos);
+      setHistories(data.response.gameInfos)
+    });
+  }
 
   const getTotalWins = () => {
     const numWin = histories
@@ -62,22 +87,6 @@ function Section() {
     return numWin;
   }
 
-  // TODO: 이거 구현 
-  //
-  // xmlHttpRequest.open("GET", baseUrl + "/summoner/아트런/3", true); // 하드코딩 ㅈㅅ
-  // xmlHttpRequest.send();
-  // xmlHttpRequest.onload = () => {
-  //   if (xmlHttpRequest.status === 200) {
-  //     const obj = JSON.parse(xmlHttpRequest.response).response;
-  //     console.log(obj);
-  //     setLOLInfo(obj);
-  //     setHistories(obj.inGamePlayerInfos);
-  //   } else {
-  //     // handle LoL Error: display register api key
-  //     setIsShowAPIInput(true);
-  //   }
-  // }
-
   return (
     <div id="section2">
       {/* lol */}
@@ -85,10 +94,9 @@ function Section() {
           {/* 소환사 프로필 정보 */}
           <div>
             <div>아트런</div>
-            {/* <img src={getLOLImgPath(LOLInfo.profileIcon, 'profileicon')} alt="" /> */}
+            <img src={getLOLImgPath(String(summonerInfo?.profileIconId), 'profileicon')} alt="" />
           </div>
-          {/* <p>Lv.{LOLInfo.summonerLevel}</p> */}
-          {/* <p>{LOLInfo.win + LOLInfo.lose}전 {LOLInfo.win}승 {LOLInfo.lose}패</p> */}
+          <p>Lv.{summonerInfo?.summonerLevel}</p>
 
           <p>{getTotalWins()} 승 {10 - getTotalWins()} 패</p>
           {/* Match Histories */}
@@ -96,6 +104,8 @@ function Section() {
             <div className="lol-game-div" key={index}>
               <p>게임시간: {Math.floor(history.gameDuration / 60)} 분</p>
               <img src={getLOLImgPath(history.participant.championName, "champion")} alt="" />
+              <img src={getLOLImgPath(history.participant.summonerSpell1, "spell")} alt="" /> 
+              <img src={getLOLImgPath(history.participant.summonerSpell2, "spell")} alt="" /> 
               <img src={getLOLImgPath(history.participant.item0, "item")} alt="" />
               <img src={getLOLImgPath(history.participant.item1, "item")} alt="" />
               <img src={getLOLImgPath(history.participant.item2, "item")} alt="" />
@@ -103,8 +113,6 @@ function Section() {
               <img src={getLOLImgPath(history.participant.item4, "item")} alt="" />
               <img src={getLOLImgPath(history.participant.item5, "item")} alt="" />
               <img src={getLOLImgPath(history.participant.item6, "item")} alt="" />
-              {/* TODO: 스펠 이름으로 바꾸기 <img src={getLOLImgPath(history.participant.summoner1Id, "spell")} alt="" /> */} 
-              {/* <img src={getLOLImgPath(history.champion, 'champion')} alt="" />
               {/* TODO: 이거 이기고 진거에 따라 배경색 다르게 해주세요 */}
               {/* <p>{history.win ? 'win' : 'lose'}</p> */}
             </div>
