@@ -1,0 +1,18 @@
+.subtitle {
+  color: #FFD500;
+  padding-left: 0.125em;
+}
+
+.lol-frame {
+  margin-top: 3rem;
+}
+
+.lol-game-div {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.title:nth-child(1) { font-size: 420%; }
+.title:nth-child(2) { font-size: 210%; }
+.title:nth-child(3) { font-size: 140%; }
+.title:nth-child(4) { font-size: 100%; }
+.title:nth-child(5) { font-size:  80%; }
