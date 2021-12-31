@@ -1,3 +1,22 @@
+#first-section {
+  font-size: 200%;
+  font-style: italic;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  margin: 0;
+  padding: 0 0 0 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (min-width:  576px) { #first-section { padding-left:  3rem; } }
+@media (min-width:  768px) { #first-section { padding-left:  5rem; } }
+@media (min-width: 1024px) { #first-section { padding-left:  9rem; } }
+@media (min-width: 1200px) { #first-section { padding-left: 17rem; } }
+
 .subtitle {
   color: #FFD500;
   padding-left: 0.125em;

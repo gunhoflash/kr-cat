@@ -39,7 +39,7 @@ function FirstSection() {
   }
 
   return (
-    <div>
+    <div id="first-section">
       <Timer />
 
       {/* lol */}
