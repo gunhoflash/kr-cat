@@ -17,9 +17,9 @@
   },
   "scripts": {
     "start": "craco start",
-		"build": "craco build; cp -a ./build/. ../public",
-		"test": "craco test",
-		"eject": "react-scripts eject"
+    "build": "craco build; cp -a ./build/. ../public",
+    "test": "craco test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

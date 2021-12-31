@@ -3,6 +3,7 @@ import ReactFullpage from '@fullpage/react-fullpage';
 import './App.css';
 import Section1 from './sections/1';
 import Section2 from './sections/2';
+import Section3 from './sections/3';
 
 // NOTE: if using fullpage extensions/plugins put them here and pass it as props
 const pluginWrapper = () => {
@@ -19,6 +20,7 @@ const Fullpage = () => {
   const sections = [
     <Section1 />,
     <Section2 />,
+    <Section3 />,
   ];
 
   return (
