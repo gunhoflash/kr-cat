@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import ReactFullpage from '@fullpage/react-fullpage';
 import './App.css';
-import FirstSection from './sections/FirstSection';
+import Section1 from './sections/1';
+import Section2 from './sections/2';
 
 // NOTE: if using fullpage extensions/plugins put them here and pass it as props
 const pluginWrapper = () => {
@@ -9,34 +10,37 @@ const pluginWrapper = () => {
 };
 
 function App() {
-  const [color, setColor] = useState();
-
   return (
     <Fullpage />
   );
 }
 
-const Fullpage = () => (
-  <ReactFullpage
-    pluginWrapper={pluginWrapper}
+const Fullpage = () => {
+  const sections = [
+    <Section1 />,
+    <Section2 />,
+  ];
 
-    //fullpage options
-    scrollingSpeed={1000} /* Options here */
+  return (
+    <ReactFullpage
+      pluginWrapper={pluginWrapper}
 
-    render={({ state, fullpageApi }) => {
-      return (
-        <ReactFullpage.Wrapper>
-          <div className="section">
-            {/* <p>Section 1</p> */}
-            <FirstSection />
-          </div>
-          <div className="section">
-            <p>Section 2</p>
-          </div>
-        </ReactFullpage.Wrapper>
-      );
-    }}
-  />
-);
+      //fullpage options
+      scrollingSpeed={1000} /* Options here */
+
+      render={({ state, fullpageApi }) => {
+        return (
+          <ReactFullpage.Wrapper>
+            {sections.map((section, i) => (
+              <div key={i} className="section">
+                {section}
+              </div>
+            ))}
+          </ReactFullpage.Wrapper>
+        );
+      }}
+    />
+  );
+};
 
 export default App;

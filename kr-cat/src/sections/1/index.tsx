@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Timer from '@components/Timer';
-import './FirstSection.css';
+import './style.css';
 
 const baseUrl = "https://kr-carrot.herokuapp.com/api";
 const LOL_IMG_BASE = 'http://ddragon.leagueoflegends.com/cdn/11.15.1/img';
@@ -8,7 +8,7 @@ const LOL_IMG_BASE = 'http://ddragon.leagueoflegends.com/cdn/11.15.1/img';
 const xmlHttpRequest = new XMLHttpRequest();
 const getLOLImgPath = (v: string, subpath: string) => `${LOL_IMG_BASE}/${subpath}/${v}.png`;
 
-function FirstSection() {
+function Section() {
   const [apiKey, setApiKey] = useState('');
   const [LOLInfo, setLOLInfo] = useState<any>(null);
   const [histories, setHistories] = useState([]);
@@ -39,7 +39,7 @@ function FirstSection() {
   }
 
   return (
-    <div id="first-section">
+    <div id="section1">
       <Timer />
 
       {/* lol */}
@@ -89,4 +89,4 @@ function FirstSection() {
   );
 }
 
-export default FirstSection;
+export default Section;

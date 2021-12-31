@@ -1,4 +1,4 @@
-#first-section {
+#section1 {
   font-size: 200%;
   font-style: italic;
   height: 100%;
@@ -12,10 +12,10 @@
   justify-content: center;
 }
 
-@media (min-width:  576px) { #first-section { padding-left:  3rem; } }
-@media (min-width:  768px) { #first-section { padding-left:  5rem; } }
-@media (min-width: 1024px) { #first-section { padding-left:  9rem; } }
-@media (min-width: 1200px) { #first-section { padding-left: 17rem; } }
+@media (min-width:  576px) { #section1 { padding-left:  3rem; } }
+@media (min-width:  768px) { #section1 { padding-left:  5rem; } }
+@media (min-width: 1024px) { #section1 { padding-left:  9rem; } }
+@media (min-width: 1200px) { #section1 { padding-left: 17rem; } }
 
 .subtitle {
   color: #FFD500;
