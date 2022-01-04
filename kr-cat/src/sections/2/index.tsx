@@ -1,11 +1,11 @@
 import './style.css';
 import { useEffect, useState } from 'react';
-import internal from 'stream';
+import ApiKeyPopup from './popup';
 
 const baseUrl = "https://kr-carrot.herokuapp.com/api";
 const LOL_IMG_BASE = 'http://ddragon.leagueoflegends.com/cdn/11.15.1/img';
 const getLOLImgPath = (v: string, subpath: string) => `${LOL_IMG_BASE}/${subpath}/${v}.png`;
-
+const SUMMONER_NAME = "아트런";
 
 interface SummonerInfo {
   accountId: string;
@@ -49,6 +49,7 @@ interface History {
 function Section() {
   const [summonerInfo, setSummonerInfo] = useState<SummonerInfo>();
   const [histories, setHistories] = useState<History[]>([]);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     getAndSetSummonerInfo();
@@ -61,21 +62,21 @@ function Section() {
 
 
   const getAndSetSummonerInfo = function() {
-    window.fetch(baseUrl + "/summoners/아트런")
+    window.fetch(`${baseUrl}/summoners/${SUMMONER_NAME}`)
       .then(response => response.json())
-      .then(data => {
-        console.log(data.response);
-        setSummonerInfo(data.response)}
-        );
+      .then(data => setSummonerInfo(data.response));
   }
 
   const getAndSetHistories = function() {
-    window.fetch(baseUrl + "/summoners/histories/아트런")
-    .then(response => response.json())
-    .then(data => {
-      console.log(data.response.gameInfos);
-      setHistories(data.response.gameInfos)
-    });
+    window.fetch(`${baseUrl}/summoners/histories/${SUMMONER_NAME}`)
+      .then(response => response.json())
+      .then(data => setHistories(data.response.gameInfos));
+  }
+
+  const refreshHistories = function() {
+    window.fetch(`${baseUrl}/summoners/histories/re/${SUMMONER_NAME}`)
+      .then(response => response.json())
+      .then(data => setHistories(data.response.gameInfos));
   }
 
   const getTotalWins = () => {
@@ -83,8 +84,11 @@ function Section() {
       .filter(history => history.participant.win)
       .length;
 
-    console.log(numWin);
     return numWin;
+  }
+  
+  const openModal = () => {
+    setShow(true);
   }
 
   return (
@@ -92,32 +96,45 @@ function Section() {
       {/* lol */}
         <div className="lol-frame">
           {/* 소환사 프로필 정보 */}
-          <div>
-            <div>아트런</div>
-            <img src={getLOLImgPath(String(summonerInfo?.profileIconId), 'profileicon')} alt="" />
+          <div className="row-flex">
+            <img id="profile" src={getLOLImgPath(String(summonerInfo?.profileIconId), 'profileicon')} alt="" />
+            <p className="h3 ml-1">아트런</p>
           </div>
-          <p>Lv.{summonerInfo?.summonerLevel}</p>
+          <div className="row-flex">
+            <p>Lv.{summonerInfo?.summonerLevel}</p>
+            <button onClick={refreshHistories}>전적 갱신</button>
+            <button onClick={openModal}>팝업오픈</button>
+          </div>
 
           <p>{getTotalWins()} 승 {10 - getTotalWins()} 패</p>
           {/* Match Histories */}
           {histories.map((history: any, index: number) => (
-            <div className="lol-game-div" key={index}>
+            <div className="row-flex lol-game-div" key={index}>
+              <img id="champion" src={getLOLImgPath(history.participant.championName, "champion")} alt="" />
+              <div className="col-flex">
+                <img id="spell" src={getLOLImgPath(history.participant.summonerSpell1, "spell")} alt="" /> 
+                <img id="spell" src={getLOLImgPath(history.participant.summonerSpell2, "spell")} alt="" /> 
+              </div>
+              {/* items */}
+              <div className="col-flex">
+                <div className="row-flex">
+                  <img id="item" src={getLOLImgPath(history.participant.item0, "item")} alt="" />
+                  <img id="item" src={getLOLImgPath(history.participant.item1, "item")} alt="" />
+                  <img id="item" src={getLOLImgPath(history.participant.item2, "item")} alt="" />
+                  <img id="item" src={getLOLImgPath(history.participant.item3, "item")} alt="" />
+                </div>
+                <div className="row-flex">
+                  <img id="item" src={getLOLImgPath(history.participant.item4, "item")} alt="" />
+                  <img id="item" src={getLOLImgPath(history.participant.item5, "item")} alt="" />
+                  <img id="item" src={getLOLImgPath(history.participant.item6, "item")} alt="" />
+                </div>
+              </div>
               <p>게임시간: {Math.floor(history.gameDuration / 60)} 분</p>
-              <img src={getLOLImgPath(history.participant.championName, "champion")} alt="" />
-              <img src={getLOLImgPath(history.participant.summonerSpell1, "spell")} alt="" /> 
-              <img src={getLOLImgPath(history.participant.summonerSpell2, "spell")} alt="" /> 
-              <img src={getLOLImgPath(history.participant.item0, "item")} alt="" />
-              <img src={getLOLImgPath(history.participant.item1, "item")} alt="" />
-              <img src={getLOLImgPath(history.participant.item2, "item")} alt="" />
-              <img src={getLOLImgPath(history.participant.item3, "item")} alt="" />
-              <img src={getLOLImgPath(history.participant.item4, "item")} alt="" />
-              <img src={getLOLImgPath(history.participant.item5, "item")} alt="" />
-              <img src={getLOLImgPath(history.participant.item6, "item")} alt="" />
-              {/* TODO: 이거 이기고 진거에 따라 배경색 다르게 해주세요 */}
-              {/* <p>{history.win ? 'win' : 'lose'}</p> */}
             </div>
           ))}
         </div>
+
+        {show && <ApiKeyPopup />}
     </div>
   );
 }
