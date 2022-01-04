@@ -4,3 +4,65 @@
   justify-content: center;
   align-items: center;
 }
+
+#profile {
+  width: 6rem;
+  border-radius: 2rem;
+  border: 2px solid black;
+}
+
+#champion {
+  width: 8rem;
+  border-radius: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+#spell {
+  width: 4rem;
+  border-radius: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+#item {
+  width: 4rem;
+  border-radius: 0.5rem;
+}
+
+.lol-frame {
+  margin-top: 3rem;
+}
+
+.lol-game-div {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: absolute;
+  transition: all 5s ease-in-out;
+}
+
+.row-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.col-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.h3 {
+  font-size: 3rem;
+  color: black;
+}
+
+.ml-1 {
+  margin-left: 1rem;
+}
