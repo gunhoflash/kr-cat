@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import ReactFullpage from '@fullpage/react-fullpage';
 import './App.css';
 import Section1 from './sections/1';
@@ -27,10 +26,13 @@ const Fullpage = () => {
 
   return (
     <ReactFullpage
-      pluginWrapper={pluginWrapper}
+      // pluginWrapper={pluginWrapper}
 
       //fullpage options
       scrollingSpeed={1000} /* Options here */
+      scrollOverflow={true}
+      recordHistory={false}
+      normalScrollElements=".normal-scroll-element"
 
       render={({ state, fullpageApi }) => {
         return (

@@ -108,30 +108,32 @@ function Section() {
 
           <p>{getTotalWins()} 승 {10 - getTotalWins()} 패</p>
           {/* Match Histories */}
-          {histories.map((history: any, index: number) => (
-            <div className="row-flex lol-game-div" key={index}>
-              <img id="champion" src={getLOLImgPath(history.participant.championName, "champion")} alt="" />
-              <div className="col-flex">
-                <img id="spell" src={getLOLImgPath(history.participant.summonerSpell1, "spell")} alt="" /> 
-                <img id="spell" src={getLOLImgPath(history.participant.summonerSpell2, "spell")} alt="" /> 
-              </div>
-              {/* items */}
-              <div className="col-flex">
-                <div className="row-flex">
-                  <img id="item" src={getLOLImgPath(history.participant.item0, "item")} alt="" />
-                  <img id="item" src={getLOLImgPath(history.participant.item1, "item")} alt="" />
-                  <img id="item" src={getLOLImgPath(history.participant.item2, "item")} alt="" />
-                  <img id="item" src={getLOLImgPath(history.participant.item3, "item")} alt="" />
+          <div id="match-history" className="normal-scroll-element">
+            {histories.map((history: any, index: number) => (
+              <div className="row-flex lol-game-div" key={index}>
+                <img id="champion" src={getLOLImgPath(history.participant.championName, "champion")} alt="" />
+                <div className="col-flex">
+                  <img id="spell" src={getLOLImgPath(history.participant.summonerSpell1, "spell")} alt="" />
+                  <img id="spell" src={getLOLImgPath(history.participant.summonerSpell2, "spell")} alt="" />
                 </div>
-                <div className="row-flex">
-                  <img id="item" src={getLOLImgPath(history.participant.item4, "item")} alt="" />
-                  <img id="item" src={getLOLImgPath(history.participant.item5, "item")} alt="" />
-                  <img id="item" src={getLOLImgPath(history.participant.item6, "item")} alt="" />
+                {/* items */}
+                <div className="col-flex">
+                  <div className="row-flex">
+                    <img id="item" src={getLOLImgPath(history.participant.item0, "item")} alt="" />
+                    <img id="item" src={getLOLImgPath(history.participant.item1, "item")} alt="" />
+                    <img id="item" src={getLOLImgPath(history.participant.item2, "item")} alt="" />
+                    <img id="item" src={getLOLImgPath(history.participant.item3, "item")} alt="" />
+                  </div>
+                  <div className="row-flex">
+                    <img id="item" src={getLOLImgPath(history.participant.item4, "item")} alt="" />
+                    <img id="item" src={getLOLImgPath(history.participant.item5, "item")} alt="" />
+                    <img id="item" src={getLOLImgPath(history.participant.item6, "item")} alt="" />
+                  </div>
                 </div>
+                <p>게임시간: {Math.floor(history.gameDuration / 60)} 분</p>
               </div>
-              <p>게임시간: {Math.floor(history.gameDuration / 60)} 분</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {show && <ApiKeyPopup />}

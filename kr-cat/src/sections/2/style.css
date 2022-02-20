@@ -32,6 +32,11 @@
   margin-top: 3rem;
 }
 
+#match-history {
+  max-height: 80vh;
+  overflow: scroll;
+}
+
 .lol-game-div {
   background-color: rgba(0, 0, 0, 0.3);
 }
