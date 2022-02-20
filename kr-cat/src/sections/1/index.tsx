@@ -13,8 +13,6 @@ function Section() {
         h-full
         text-[200%]
         italic
-        p-0
-        m-0
         pl-[1rem]
         sm:pl-[2.5rem]
         md:pl-[5rem]

@@ -3,7 +3,15 @@ import Comments from '../../components/Comments'
 
 function Section() {
     return (
-      <div id="section4">
+      <div
+        className="
+          flex
+          flex-col
+          justify-center
+          w-full
+          min-h-full
+        "
+      >
         <Comments />
       </div>
     );
