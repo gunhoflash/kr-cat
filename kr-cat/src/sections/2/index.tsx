@@ -52,8 +52,8 @@ function Section() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    getAndSetSummonerInfo();
-    getAndSetHistories();
+    // getAndSetSummonerInfo();
+    // getAndSetHistories();
     
     return () => {
       
