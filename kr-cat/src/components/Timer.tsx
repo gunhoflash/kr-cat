@@ -19,11 +19,11 @@ const dayCounts = [
 ];
 
 const TitleText = ({text}: {text: string}) => useMemo(() => (
-  <p className="title">{text}</p>
+  <p className="title m-0 leading-none">{text}</p>
 ), [text]);
 
 const SubTitle = ({isTheDay, dayCount, anniversary}: {isTheDay: boolean; dayCount: number; anniversary: Dayjs}) => useMemo(() => (
-  <div className="subtitle">
+  <div className="subtitle pl-0.5">
     {isTheDay
       ? `${dayCount}: ${anniversary.format('YYYY-MM-DD')}`
       : `${dayCount}까지`}

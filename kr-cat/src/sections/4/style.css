@@ -1,18 +1,13 @@
 #section4 {
-    font-size: 200%;
-    font-style: italic;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-  
-    margin: 0;
-    padding: 0 0 0 1.25rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  @media (min-width:  576px) { #section1 { padding-left:  3rem; } }
-  @media (min-width:  768px) { #section1 { padding-left:  5rem; } }
-  @media (min-width: 1024px) { #section1 { padding-left:  9rem; } }
-  @media (min-width: 1200px) { #section1 { padding-left: 17rem; } }
+  font-size: 200%;
+  font-style: italic;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  margin: 0;
+  padding: 0 0 0 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

@@ -19,7 +19,8 @@
     "start": "craco start",
     "build": "craco build; cp -a ./build/. ../public",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "watch:tailwind": "npx tailwindcss -i ./src/styles/global.css -o ./src/styles/dist/global.css --watch"
   },
   "eslintConfig": {
     "extends": [
@@ -47,6 +48,7 @@
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
-    "eslint-plugin-react": "^7.25.1"
+    "eslint-plugin-react": "^7.25.1",
+    "tailwindcss": "^3.0.23"
   }
 }
