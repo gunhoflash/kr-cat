@@ -1,8 +1,8 @@
 import ReactFullpage from '@fullpage/react-fullpage';
 import './App.css';
 import Section1 from './sections/1';
-import Section2 from './sections/2';
-import Section3 from './sections/3';
+// import Section2 from './sections/2';
+// import Section3 from './sections/3';
 import Section4 from './sections/4';
 
 // NOTE: if using fullpage extensions/plugins put them here and pass it as props
@@ -19,8 +19,8 @@ function App() {
 const Fullpage = () => {
   const sections = [
     <Section1 />,
-    <Section2 />,
-    <Section3 />,
+    // <Section2 />,
+    // <Section3 />,
     <Section4 />,
   ];
 
