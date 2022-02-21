@@ -1,5 +1,4 @@
 import ReactFullpage from '@fullpage/react-fullpage';
-import './App.css';
 import Section1 from './sections/1';
 // import Section2 from './sections/2';
 // import Section3 from './sections/3';

@@ -1,25 +1,5 @@
-#section1 {
-  font-size: 200%;
-  font-style: italic;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-
-  margin: 0;
-  padding: 0 0 0 1.25rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-@media (min-width:  576px) { #section1 { padding-left:  3rem; } }
-@media (min-width:  768px) { #section1 { padding-left:  5rem; } }
-@media (min-width: 1024px) { #section1 { padding-left:  9rem; } }
-@media (min-width: 1200px) { #section1 { padding-left: 17rem; } }
-
 .subtitle {
   color: #FFD500;
-  padding-left: 0.125em;
 }
 
 .title:nth-child(1) { font-size: 420%; }
@@ -27,3 +7,7 @@
 .title:nth-child(3) { font-size: 140%; }
 .title:nth-child(4) { font-size: 100%; }
 .title:nth-child(5) { font-size:  80%; }
+
+.title {
+  word-break: keep-all;
+}

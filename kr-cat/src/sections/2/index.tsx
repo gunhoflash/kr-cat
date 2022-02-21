@@ -98,7 +98,7 @@ function Section() {
           {/* 소환사 프로필 정보 */}
           <div className="row-flex">
             <img id="profile" src={getLOLImgPath(String(summonerInfo?.profileIconId), 'profileicon')} alt="" />
-            <p className="h3 ml-1">아트런</p>
+            <p className="h3 ml-4">아트런</p>
           </div>
           <div className="row-flex">
             <p>Lv.{summonerInfo?.summonerLevel}</p>
