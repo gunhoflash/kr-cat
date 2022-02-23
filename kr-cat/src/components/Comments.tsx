@@ -26,8 +26,7 @@ function Comments() {
         window.fetch(`${BASE_URL}/comments`)
         .then(response => response.json())
         .then(json => {
-            setComments(json);
-            console.log(json)
+            setComments(json.content);
         })
     }
 
