@@ -1,7 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, FormEventHandler, useRef } from "react";
 import '../styles/comment/style.css'
 
 const BASE_URL = "https://kr-carrot-kotlin.herokuapp.com/api";
+
+const setRefValue = (ref: any, value: any) => {
+  if (ref.current) {
+    ref.current.value = value;
+  }
+};
 
 interface Comment {
   id: Number;
@@ -15,17 +21,15 @@ interface CommentProps {
 }
 
 function Comments() {
-  const [comments, setComments] = useState<Comment[]>()
+  const [comments, setComments] = useState<Comment[]>([]);
 
-  const refreshComments = () => {
+  const refreshComments = useCallback(() => {
     window.fetch(`${BASE_URL}/comments`)
       .then(response => response.json())
-      .then(json => {
-        setComments(json.content);
-      });
-  };
+      .then(json => setComments(json.content));
+  }, []);
 
-  useEffect(refreshComments, [])
+  useEffect(refreshComments, [refreshComments]);
 
   return (
     <div className="root flex flex-col items-center font-comment">
@@ -54,11 +58,11 @@ function CommentComp(props: CommentProps) {
 }
 
 function CommentInput({ onRefresh }: { onRefresh: () => void }) {
-  const [writer, setWriter] = useState<string>();
-  const [password, setPassword] = useState<string>();
-  const [content, setContent] = useState<string>();
+  const writerInputRef = useRef<HTMLInputElement>(null);
+  const passwordInputRef = useRef<HTMLInputElement>(null);
+  const contentInputRef = useRef<HTMLTextAreaElement>(null);
 
-  const saveComment = (e: any) => {
+  const saveComment: FormEventHandler<HTMLFormElement> = useCallback(e => {
     e.preventDefault();
 
     window.fetch(`${BASE_URL}/comments`, {
@@ -67,18 +71,18 @@ function CommentInput({ onRefresh }: { onRefresh: () => void }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        writer: writer,
-        password: password,
-        content: content,
+        writer: writerInputRef.current?.value,
+        password: passwordInputRef.current?.value,
+        content: contentInputRef.current?.value,
       }),
     }).then(response => {
-      setWriter("");
-      setPassword("");
-      setContent("");
+      setRefValue(writerInputRef, "");
+      setRefValue(passwordInputRef, "");
+      setRefValue(contentInputRef, "");
       onRefresh();
       if (response.status !== 201) console.log("save comment error");
     });
-  };
+  }, [onRefresh]);
 
   return (
     <div className="comment-input justify-self-start">
@@ -86,14 +90,14 @@ function CommentInput({ onRefresh }: { onRefresh: () => void }) {
         <div className="flex flex-row mb-4">
           <div className="mr-4">
             <label className="mr-2" htmlFor="writer">작성자</label>
-            <input id="writer" name="writer" onChange={(e) => setWriter(e.target.value)} value={writer} />
+            <input ref={writerInputRef} name="writer" />
           </div>
           <div>
             <label className="mr-2" htmlFor="password">비밀번호</label>
-            <input id="password" name="password" type="password" onChange={(e) => setPassword(e.target.value)} value={password} />
+            <input ref={passwordInputRef} name="password" type="password" />
           </div>
         </div>
-        <textarea className="comment-text" id="content" name="content" onChange={(e) => setContent(e.target.value)} value={content} />
+        <textarea ref={contentInputRef} name="content" className="comment-text" />
         <div className="flex flex-row justify-end">
           <button type="submit">등록</button>
         </div>
