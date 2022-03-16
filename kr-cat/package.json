@@ -17,10 +17,11 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build; cp -a ./build/. ../public",
+    "build": "npm run build:tailwind & craco build; cp -a ./build/. ../public",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "watch:tailwind": "npx tailwindcss -i ./src/styles/global.css -o ./src/styles/dist/global.css --watch"
+    "build:tailwind": "npx tailwindcss -i ./src/styles/global.css -o ./src/styles/dist/global.css",
+    "watch:tailwind": "npm run build:tailwind -- --watch"
   },
   "eslintConfig": {
     "extends": [
