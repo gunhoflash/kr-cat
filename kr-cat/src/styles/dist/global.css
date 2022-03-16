@@ -470,36 +470,24 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin: 0px;
 }
 
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
-}
-
-.mb-1 {
-  margin-bottom: 0.25rem;
-}
-
-.mr-1 {
-  margin-right: 0.25rem;
 }
 
 .mr-2 {
   margin-right: 0.5rem;
 }
 
-.ml-1 {
-  margin-left: 0.25rem;
-}
-
-.ml-4 {
-  margin-left: 1rem;
-}
-
 .mr-4 {
   margin-right: 1rem;
 }
 
-.mb-4 {
-  margin-bottom: 1rem;
+.ml-4 {
+  margin-left: 1rem;
 }
 
 .flex {
@@ -546,10 +534,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   overflow: hidden;
 }
 
-.p-0 {
-  padding: 0px;
-}
-
 .pl-0\.5 {
   padding-left: 0.125rem;
 }
@@ -586,45 +570,33 @@ body {
   font-family: 'Black Han Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  background-size: 400% 400%;
-  -webkit-animation: gradient 15s ease infinite;
-          animation: gradient 15s ease infinite;
+  background: linear-gradient(135deg, #e73c7e, #23a6d5, #23d5ab, #ee7752, #e73c7e, #23a6d5, #23d5ab, #ee7752, #e73c7e);
+  background-size: 800% 800%;
+  -webkit-animation: gradient 12s linear infinite;
+          animation: gradient 12s linear infinite;
 }
 
 @-webkit-keyframes gradient {
   0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
+    background-position: 0% 0%;
   }
 
   100% {
-    background-position: 0% 50%;
+    background-position: 57% 57%;
   }
 }
 
 @keyframes gradient {
   0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
+    background-position: 0% 0%;
   }
 
   100% {
-    background-position: 0% 50%;
+    background-position: 57% 57%;
   }
 }
 
 @media (min-width: 640px) {
-  .sm\:pl-10 {
-    padding-left: 2.5rem;
-  }
-
   .sm\:pl-\[2\.5rem\] {
     padding-left: 2.5rem;
   }
